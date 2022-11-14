@@ -1,0 +1,49 @@
+{% extends 'index.html' %}
+{% block title %} Edit Concept {% endblock %}
+
+{% block body %}
+<div class = "container">
+    <h1 class="text-center"><u>Edit Sentence</u></h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class = row mt-3>
+            <div class = "form-group col-md-12">
+                <label><i style ="font-weight: bold;">Sentence</i></label>
+                <br>
+                <p>{{sentence_obj.sentence}}</p>
+            </div>
+        </div>
+        <div class = row mt-3>
+            <div class = "form-group col-md-12">
+                <label><i style ="font-weight: bold;">Label</i></label>
+                <br>
+                <select name = 'label_field'>
+                    <option selected diabled = 'true'> {{sentence_obj.label}}</option>
+                    {% for i in label_mapper %}
+                    <option>{{i.concept}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class = row mt-3>
+            <div class = "form-group col-md-12">
+                <label><i style ="font-weight: bold;">Level</i></label>
+                <input type = "number" class = "form-control mt-2" name = "level_field" placeholder = "{{sentence_obj.level_value}}" required>
+            </div>
+        </div>
+    <button type="submit" class="btn btn-outline-primary mt-4">Submit</button>
+        </div>
+    </div>
+    </form>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% if alert %}
+    alert("label added successfully!")
+    document.location = "/view_sentences"
+    {% endif %}
+</script>
+{% endblock %}

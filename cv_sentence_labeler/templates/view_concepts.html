@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+{% block title %} Cv Concepts {% endblock %}
+{% block body %}
+<div class="container mt-4">
+    <h1 class="text-center"><u>Concepts</u></h1>
+    <table class="table table-hover" id="example">
+        <thead>
+            <tr>
+                <th>Sr.No</th>
+                <th>Concepts</th>
+                <th>Concept Short</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for i in data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+    <!--        <td>{{concept.subconcepts}}</td> -->
+            <td>{{i.concept}}</td>
+            <td>{{i.concept_short}}</td>
+            <td> <a  style="text-align:center" href="/delete_concept/{{i.id}}" onclick="return confirm('Are you sure you want to delete this Concept?')">Delete</a></td>
+           <td> <a  style="text-align:center" href="/edit_concept/{{i.id}}">Edit</a></td>
+
+        </tr>
+        {% endfor %}
+    <a href = "/add_concept/" class="btn btn-outline-primary mt-4">Add Concept</a>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

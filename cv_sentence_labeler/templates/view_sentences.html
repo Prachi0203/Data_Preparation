@@ -1,0 +1,94 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %} Add labels {% endblock %}
+{% block css %}
+ <link rel="stylesheet" type = "text/css" href = "https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type = "text/css" href = "https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+<! -- adding css for filter -->
+
+{% endblock %}
+{% block js %}
+<script type = "text/javascript" language = "javascript" src = "https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type = "text/javascript" language = "javascript" src = "https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script type = "text/javascript" language = "javascript" src = "https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script type = "text/javascript" language = "javascript" src = https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type = "text/javascript" language = "javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type = "text/javascript" language = "javascript" src = "https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script type = "text/javascript" language = "javascript" src = "https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+<script type = "text/javascript" language= "javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<! -- adding for javascript for filter -->
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+            initComplete: function () {
+            this.api()
+                .columns()
+                .every(function () {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+                            column.search(val ? '^' + val + '$' : '', true, false).draw();
+                        });
+
+                    column
+                        .data()
+                        .unique()
+                        .sort()
+                        .each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>');
+                        });
+                });
+        },
+
+        dom: 'Bfrtip',
+        buttons: [
+             'excel'
+        ]
+    } );
+} );
+</script>
+{% endblock %}
+{% block body %}
+<div class = "container">
+    <h1 class="text-center"><u>Sentences</u></h1>
+    <table  class="table table-hover" id="example">
+        <thead>
+            <tr>
+                <th>Sr.No</th>
+                <th>Sentences</th>
+                <th>label</th>
+                <th>label Value</th>
+                <th>Level</th>
+                <th>Action</th>
+                <th>Action</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for i in sentence_labeler %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.sentence}}</td>
+            <td>{{i.label}}</td>
+            <td>{{i.label_value}}</td>
+            <td>{{i.level_value}}</td>
+            <td> <a  style="text-align:center" href="/delete_sentence/{{i.id}}" onclick="return confirm('Are you sure you want to delete this Concept?')">Delete</a></td>
+            <td> <a  style="text-align:center" href="/edit_sentence/{{i.id}}">Edit</a></td>
+            <td> <a  style="text-align:center" href="/duplicate_sentence/{{i.id}}">Duplicate</a></td>
+        </tr>
+        {% endfor %}
+    <a href = "/add_sentence/" class="btn btn-outline-primary mt-4" style = "margin-right:10px">Add Sentence</a>
+    <a href = "/upload_excel/" class="btn btn-outline-primary mt-4">Upload Excel</a>
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+
+

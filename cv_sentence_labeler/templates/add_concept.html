@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+{% block title %} Cv Concepts {% endblock %}
+{% block body %}
+<div class = "container">
+    <h1 class="text-center"><u>Add Concept</u></h1>
+
+    <form method = 'POST'>
+    {% csrf_token %}
+<!--        <div class = row mt-3>
+            <div class = "form-group col-md-12">
+                <label><i style ="font-weight: bold;">Id</i></label>
+                <input type = "text" class = "form-control mt-2" name = "id" placeholder = "id" required>
+            </div>
+        </div>      -->
+
+        <div class = row mt-3>
+            <div class = "form-group col-md-12">
+                <label><i style ="font-weight: bold;">Concepts</i></label>
+                <input type = "text" class = "form-control mt-2" name = "concept" placeholder = "add concept" required>
+            </div>
+        </div>
+        <div class = row mt-3>
+                <div class = "form-group col-md-12">
+                    <label><i style ="font-weight: bold;">Short Cocnept</i></label>
+                    <input type = "text" class = "form-control mt-2" name = "concept_short" placeholder = "add short concept" required>
+                </div>
+
+            <button type="submit" class="btn btn-outline-primary mt-4">Add Concept</button>
+        </div>
+
+    </form>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    {% if alert %}
+    alert("Concept added successfully.")
+    document.location = "/view_concepts"
+    {% endif %}
+</script>
+{% endblock %}
+

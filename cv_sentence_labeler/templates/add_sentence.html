@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+{% block title %} Add Sentences {% endblock %}
+{% block body %}
+<div class = "container">
+    <h1 class="text-center"><u>Add Sentence</u></h1>
+
+    <form method = 'POST'>
+    {% csrf_token %}
+
+        <div class = row mt-3>
+            <div class = "form-group col-md-12">
+                <label><i style ="font-weight: bold;">Add Sentence</i></label>
+                <input type = "text" class = "form-control mt-2" name = "text_field" placeholder = "sentence" required>
+            </div>
+        </div>
+        <div class = row mt-3>
+            <div class = "form-group col-md-12">
+                <label><i style ="font-weight: bold;">Label</i></label>
+                <br>
+                <select name = 'label'>
+                    <option selected diabled = 'true'> -- select label</option>
+                    {% for i in label_mapper %}
+                    <option>{{i.concept}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+<!--        <div class = row mt-3>
+            <div class = "form-group col-md-12">
+                <label><i style ="font-weight: bold;">Label</i></label>
+                <br>
+                <select name = 'label_field'>
+                    <option selected diabled = 'true'> -- select label</option>
+                    {% for i in label_mapper %}
+                    <option>{{i.concept_short}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>   -->
+
+        <div class = row mt-3>
+            <div class = "form-group col-md-12">
+                <label><i style ="font-weight: bold;">Level</i></label>
+                <input type = "number" class = "form-control mt-2" name = "level_field" placeholder = "level" required>
+            </div>
+        </div>
+    <button type="submit" class="btn btn-outline-primary mt-4">Submit</button>
+
+    </form>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% if alert %}
+    alert("Sentence added successfully!")
+    document.location = "/view_sentences"
+    {% endif %}
+</script>
+{% endblock %}

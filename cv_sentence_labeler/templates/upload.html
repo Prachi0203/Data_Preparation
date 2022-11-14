@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% block title %} Add Sentences {% endblock %}
+{% block body %}
+<div class = "container">
+    <h1 class="text-center"><u>Upload</u></h1>
+<!--    <form method = 'POST' class = "post-form" enctype = 'multipart/form-data'>
+        {% csrf_token %}
+        {{form.as_p}}
+    <button type="submit" class="btn btn-outline-primary mt-4">Submit</button>
+    </form>
+-->
+<form id="uploadbanner" enctype="multipart/form-data" method="post" action="#">
+    {% csrf_token %}
+
+   <input id="fileupload" name="excel_file" type="file" />
+    <br>
+    <br>
+   <input type="submit" value="submit" id="submit" />
+</form>
+
+
+
+
+</div>
+{% endblock %}

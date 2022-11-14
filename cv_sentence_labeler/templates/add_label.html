@@ -1,0 +1,70 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %} Add labels {% endblock %}
+{% block css %}
+{% endblock %}
+{% block body %}
+<div class = "container">
+
+    <h1 class="text-center"><u>Add labels</u></h1>
+    <table class="table table-hover" id="example">
+        <thead>
+            <tr>
+                <th>Sr.No</th>
+                <th>Sentences</th>
+                <th>label</th>
+                <th>label Value</th>
+                <th>Level</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for i in sentence_labeler %}
+        <tr>
+            <form method = 'POST'>
+            <td>{{forloop.counter}}
+                <input name="id" type="hidden" value="{{i.id}}">
+            </td>
+
+            <td>{{i.sentence}}</td>
+            <td>
+            {% csrf_token %}
+                <select name = 'label'>
+                    <option selected diabled = 'true'> -- select label</option>
+                    {% for i in label_mapper %}
+                    <option>{{i.concepts}}</option>
+                    {% endfor %}
+                </select>
+            <td>
+               <!--  <label><i style="font-weight: bold;">Label Value</i></label> -->
+                <input type="text" class="form-control mt-2" name="label_field" placeholder="Value" required>
+            </td>
+            <td>
+                <!-- <label><i style="font-weight: bold;">Level Value</i></label> -->
+                <input type="text" class="form-control mt-2" name="level_field" placeholder="Value" required>
+
+            </td>
+            <td>
+
+                <button type="submit" class="btn btn-outline-primary mt-4">Add</button>
+
+            </td>
+            </form>
+
+
+
+        </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    {% if alert %}
+    alert("label added successfully!")
+    document.location = "/view_sentences"
+    {% endif %}
+</script>
+{% endblock %}

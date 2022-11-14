@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% block title %} Edit Concept {% endblock %}
+
+{% block body %}
+<div class = "container">
+    <h1 class="text-center"><u>Edit Concept</u></h1>
+    <form method="POST">
+        {% csrf_token %}
+    <div class = row mt-3>
+        <div class = "form-group col-md-12">
+            <label><i style ="font-weight: bold;">Current Concept</i></label>
+            <p>{{old_concept.concept}}</p>
+            <label><i style ="font-weight: bold;">Edit Concept</i></label>
+
+            <input type = "text" class = "form-control mt-2" name = "concept" placeholder = "{{old_concept.concept}}" required>
+
+            <label><i style ="font-weight: bold;">Edit Concept-Short</i></label>
+
+            <input type = "text" class = "form-control mt-2" name = "concept_short" placeholder = "{{old_concept.concept_short}}" required>
+    <button type="submit" class="btn btn-outline-primary mt-4">Submit</button>
+        </div>
+    </div>
+    </form>
+</div>
+{% endblock %}
